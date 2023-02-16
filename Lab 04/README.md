@@ -82,8 +82,23 @@ sudo apt-get install -y nodejs
 
 ```
 
+Ensure that node has been properly installed by checking its version. Also, check if npm has
+been installed as well using the following command: ``` npm version```
+
+Thiscommand should show a version in the terminal.
+
+## 2. Install Ethereum and Other Needed Tools
+
+You can install ethereum and other necessary tools using the following commands: 
+
+-       sudo apt-get install software-properties-common
+-       sudo add-apt-repository -y ppa:ethereum/ethereum
+-       sudo apt-get update
+-       sudo apt-get install ethereum
+
+
 Test your Ethereum installation with the following command:  ```geth version```
- This should return versions details similar to the picture below: 
+This should return versions details similar to the picture below: 
 
 ![App Screenshot](./_readme-image/image1.png)
 
@@ -291,7 +306,27 @@ Now, we are ready to look at the smart contract development process. We will loo
 
 2. Now, create a file called SimpleContract.sol in Redmix IDE and copy the following code and paste it there. Don’t get confused that I assigned a  sentence “Lab is almost done” in the userName variable. Those who are tired, this is just for fun and let you know that yes, the lab is almost done. :)
 
-![App Screenshot](./_readme-image/image17.png)
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
+
+
+contract SimpleContract {
+
+
+   string userName = "Lab is almost done" ;
+
+
+   function setName(string memory name) public {
+       userName = name;
+   }
+
+
+   function getName() public view returns (string memory){
+       return userName;
+   }
+}
+```
 
 3. From the compiler section page of Remix, select the version 0.8.7 and then click Start compile. If the code is compiled successfully, you will see a green tick mark there. This program is very simple and similar to a Java program. A solidity program usually starts with the pragma keyword which defines the required compiler version. Different solidity compilers have different capabilities and different ways to express similar things. Therefore, it is important to set the correct compiler version. Then it defines the contract name, similar to the Java class. In this program we have just two methods and a public variable. The “setName” method with the supplied parameter is used to set the value of the “userName” variable. On the other hand,  the “getName” method is used to retrieve the current value of the “userName” variable. In particular, notice the way functions are defined in Solidity. The memory keyword specifies the data storage type. There are mainly two data storage types in Solidity: memory and storage. We will know about them later in our course. 
 
