@@ -13,6 +13,8 @@ In this lab, you will learn how to create and interact with an ethereum private 
 
 Ethereum is an open source blockchain which facilitates the features of smart contracts. In the ethereum network hundreds of computers known as Ethereum Nodes get connected and create a peer to peer network that runs client software to store, validate and create blocks. Geth is one of these clients. To interact or to create such a network Go Ethereum(geth) implementation is widely popular. Go Ethereum also known as geth is the official go implementation of the ethereum protocol written in golang. Geth provides many client side tools for which it is thought as the standard for other ethereum nodes.
 
+In this lab, we will use the Proof-of-Authority consensus of ethereum known as clique. Therefore, in PoA consensus the concept of miner is not relevent. Here, selaers are the node/account that add/publish/sign/validate the block into the blockchain. _However, for the simplicity, we will mention sealer/miner interchangeably in this lab._
+
 To develop, test and debug smart contracts using solidity language, Remix IDE is considered to be the best IDE among the blockchain developer community. It is considered as the industry standard  for its rich set of plugins, debug features having intuitive Graphical User Interface.
 
 There are four tasks that you will need to complete in this lab. **_Complete all the tasks and show it to your teacher._**  At the end of this lab students should know - 
@@ -185,11 +187,11 @@ A simple genesis file is provided below for this lab. Now, copy the configuratio
 ```
 Here in the genesis file, the config field holds the configuraion of the network and it's chain, extradata holds the information of sealers and alloc holds the data if there are any account which need to have initial balance when the network gets created.
 
-6. Now we will see how we can add sealer from the very first moment of our blockchain network using the **extradata** field of the genesis file. Sealers are the account that can add/sign block to the blockchain. It is similar to the miner that we knwo from bitcoin. However, in PoA sealer add/sign/publish the block. Therefore, to add sealer, **Copy your account public address of node1 without the 0x prefix** that you stored in a safe place earlier in step 3. Now, paste it to the exact place where the 40 characters sealer account is mentioned in the image below:
+6. Now we will see how we can add sealer from the very first moment of our blockchain network using the **extradata** field of the genesis file. Sealers are the account that can add/sign block to the blockchain. It is similar to the miner that we know from bitcoin. However, in PoA sealer add/sign/publish the block. **In this lab, we will make the first account of node1 as a sealer(Full Node) and rest will be a light node that cannot sign/mine blocks from the pool.** Therefore, to add sealer, **Copy your account public address of node1 without the 0x prefix** that you stored in a safe place earlier in step 3. Now, paste it to the exact place where the 40 characters sealer account is mentioned in the image below:
 
 ![App Screenshot](./_readme-image/image3.png)
 
-7. For this lab, we also want to provide some balance(pre-fund) initially to the account of node1. To do this, simply copy the public address of the account of node1. But this time including the prefix: 0x. 
+7. For this lab, we also want to provide some balance(pre-fund) initially to the account of node1. To do this, simply copy the public address of the account of node1 and paste it by replacing the to the address provided in the **alloc** field mentioned in the above image. But this time including the prefix: 0x. 
 
 
 8. Now, we can configure the both nodes so that they can join the same network using the genesis.json file. To do it enter the command:
@@ -204,7 +206,7 @@ If you do it successfully you should a see a response similar to the image below
 
 Now, Repeat the command for node2 just replacing node1 to node2. These commands will write the genesis configuration in a folder named as “geth” for the private network in both the node1 and node2 folder.
 
-9. Now we will create a dedicated “Bootnode”. One of the basic benefits of bootnode is that it helps peers to find each other's nodes in the same network. Bootnodes require a key be executed and to generate a key enter the command mentioned below that will create a boot.key file in your ethereumNetwork folder. 
+9. Now we will create a dedicated “Bootnode”. One of the basic benefits of bootnode is that it helps peers to find each other's nodes in the same network. Bootnodes require a key to be executed and to generate a key enter the command mentioned below that will create a boot.key file in your ethereumNetwork folder. 
 ```
 bootnode -genkey boot.key
 ```
@@ -311,13 +313,21 @@ After entering the command, check the running network log of node1. You should s
 
 Now copy the hash of the submitted request and check the balance of the new account. It is still zero. This is because our transaction request is now waiting to be mined/sign by miners/sealers.
 
-5. To visualize the process in real life we will use a block explorer. First download/clone the explorer using the command inside your ethereumNetwork folder:
+**Note:** To sign/mine block in Ethereum, a block need to be a sealer. Currently the first account of node1 is the only sealer account we have in the network. Try to remember, we added the account as a sealer in the genesis.json file. Therefore, In the upcoming section, we will seal/mine block from this account, since other accounts are not allowed to do this. 
+
+5. To visualize the process in real life we will use a block explorer. First, open a new termina tab and download/clone the explorer using the command inside your ethereumNetwork folder:
 ```shell
 git clone https://github.com/etherparty/explorer.git
 ```
-Now, go inside the explorer folder and open a new terminal window from there and write ```npm start```. This will start running a live block explorer of our network in http://localhost:8000. This is the reason we used this same url for **--http.corsdomain** flag while initializing the networks. Open the explorer from your browser from the mentioned url and initially you will see only one block there. This is the genesis block.
+Now, go inside the explorer folder using command ```cd explorer``` and write ```npm start```. This will start running a live block explorer of our network in http://localhost:8000. This is the reason we used this same url for **--http.corsdomain** flag while initializing the networks. Open the explorer from your browser from the mentioned url and initially you will see only one block there. This is the genesis block.
 
-6. Now, from your geth console of node1, start mining using the command:
+6. Now, from your geth console of node1, we will start mining/signing block. However, first we need to set the sealer account as etherbase account. To do this use the command:
+
+```shell
+miner.setEtherbase(eth.accounts[0])
+```
+
+Now, we can start mining using the command:
 ```
 miner.start()
 ```
@@ -349,7 +359,7 @@ Now, we are ready to look at the smart contract development process. We will loo
 
 ![App Screenshot](./_readme-image/image16_1.png)
 
-2. Now, create a file called SimpleContract.sol in Redmix IDE and copy the following code and paste it there.
+2. Now, create a file called SimpleContract.sol in Redmix IDE and copy the provided smart contract code below and paste it there. You will know more, about smart contract and remix in the upcoming classes/labs
 
 ```solidity
 // SPDX-License-Identifier: GPL-3.0
@@ -373,7 +383,7 @@ contract SimpleContract {
 }
 ```
 
-3. From the compiler section page of Remix, select the version 0.8.7 and then click Start compile. If the code is compiled successfully, you will see a green tick mark there. This program is very simple and similar to a Java program. A solidity program usually starts with the pragma keyword which defines the required compiler version. Different solidity compilers have different capabilities and different ways to express similar things. Therefore, it is important to set the correct compiler version. Then it defines the contract name, similar to the Java class. In this program we have just two methods and a public variable. The “setName” method with the supplied parameter is used to set the value of the “userName” variable. On the other hand,  the “getName” method is used to retrieve the current value of the “userName” variable. In particular, notice the way functions are defined in Solidity. The memory keyword specifies the data storage type. There are mainly two data storage types in Solidity: memory and storage. If you are confused regarding the code, don't worry, we will know about them later in our course. 
+3. From the compiler section page of Remix, select the version 0.8.7 and then click Start compile. If the code is compiled successfully, you will see a green tick mark there like mention in the above image. This program is very simple and similar to a Java program. A solidity program usually starts with the pragma keyword which defines the required compiler version. Different solidity compilers have different capabilities and different ways to express similar things. Therefore, it is important to set the correct compiler version. Then it defines the contract name, similar to the Java class. In this program we have just two methods and a public variable. The “setName” method with the supplied parameter is used to set the value of the “userName” variable. On the other hand,  the “getName” method is used to retrieve the current value of the “userName” variable. In particular, notice the way functions are defined in Solidity. The memory keyword specifies the data storage type. There are mainly two data storage types in Solidity: memory and storage. If you are confused regarding the code, don't worry, we will know about them later in our course. 
 
 ![App Screenshot](./_readme-image/image16_2.png)
 
@@ -385,7 +395,7 @@ Now, paste it to a txt/doc file and find "object" field. Copy the value of objec
 
 ![App Screenshot](./_readme-image/image16_4.png)
 
-5. Now, go to the geth console of node1 or node2. Let’s choose node1. Assign the copied hex code with a prefix 0x in a variable called contractHex. For example: ```contractHex= “0x60806040526040518060400160405........."```
+5. Now, go to the geth console of node1 or node2. Let’s choose node1. Assign the copied hex code with a **prefix 0x** in a variable called contractHex. For example: ```contractHex= “0x60806040526040518060400160405........."```
 
 6. In the Remix IDE, you will also find an option called ABI which contains some json data. Click to copy the ABI from there. 
 
@@ -405,7 +415,20 @@ Now we need to format the value by removing extra spaces from the copied data  i
 
 In the above code, transaction fee will be deducted from eth.accounts[0] account.
 
-9. Now, this will submit a transaction request to be mined. Now start the miner and when it is mined stop the miner. You will find the transaction in the explorer. To interact with the smart contract we must know the address of the smart contract where it is deployed. We can find the address of the deployed smart contract using the transaction hash. To do this, write: 
+9. Now, this will submit a transaction request to be mined/sealed. Now start the miner from the first accout console of node1 using ```miner.start()``` and when it is mined stop the miner using ```miner.stop()```. You can check if the transaction is minded or still pending using multiple command such as:
+
+```shell
+eth.pendingTransactions
+```
+This will be empty if your transaction is sealed/mined
+
+Alternatively you can check using:
+
+```shell
+txpool.content
+```
+
+If successfully added to chain, you will find the transaction in the explorer. To interact with the smart contract we must know the address of the smart contract where it is deployed. We can find the address of the deployed smart contract using the transaction hash. To do this, write: 
 
 ![App Screenshot](./_readme-image/image22.png)
 
@@ -429,10 +452,12 @@ Here we can see the initial value of our smart contract gets printed.
 
 This will submit a transaction request to be mined. Therefore, if we call the “getName” now, we will not see the updated value. The value will not be updated until the transaction is mined.
 
-14. Since blockchain is a peer-to -peer network, **any node or peer node** must start mining to add the transaction into the block. We start mining with the same node. However, we can use our node2 as a miner.  But to do this node1 and node2 must be connected in a peer-to-peer form. Currently both nodes are part of the network but they aren't peers of each other. So this will be your task to create a peer to peer network as homework mentioned at the end of this lab sheet. Don’t worry, you will get a hint. Now for this lab, we will again start mining using node1’s geth console. When the transaction is mined we again can call the getName method and can see the updated data is showing like below: 
+14. Now for this lab, we will again start mining using node1’s geth console with the first account which was created as sealer. When the transaction is mined we again can call the getName method and can see the updated data is showing like below:
 
 ![App Screenshot](./_readme-image/image27.png)
 
 **_Checkpoint 4: Show the result to your teacher_** 
 
-Congratulations, you have successfully completed interaction with the smart contract that concludes our today’s lab.
+Note: We signed/mined block using only one account which is the sealer account. However, we can convert other accounts into sealer account also. Fo this we need to submit a transaction and that should be validated by other sealer. You can try doing it at your home if you want.
+
+Finally, Congratulations! you have successfully completed interaction with the smart contract that concludes our today’s lab.
