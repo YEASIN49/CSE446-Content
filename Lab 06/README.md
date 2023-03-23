@@ -170,7 +170,7 @@ Here, first, we require the contract called Election.sol that we've created, and
 11. Now use this command to migrate the contract to the blockchain: 
 
 ```shell
-truffle migrate. 
+truffle migrate
 ```
 Explore the private blockchain visualizer to see this migration process and look at the deployed transactions. Also, look at Ganache to check the account balance. If successfully migrated, you should see a response like below:
 
