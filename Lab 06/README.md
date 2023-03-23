@@ -107,7 +107,7 @@ cd election
 
 6. Now, we will create our own contract skeleton first. But before that, delete the sample contract file available inside the  “**contracts**” folder that came with the boilerplate code. Now, to create a skeleton contract. Issue this command: 
 ```shell
-touch contracts/Election.sol. 
+touch contracts/Election.sol
 ```
 
 This will create a “**Election.sol**” file inside the contracts folder.
