@@ -56,7 +56,7 @@ source ~/.bashrc
 ```
 
 Now, install any node version you want by following command: $  nvm install YourVersion
-For Example: to install node v18.14.0 use command:
+For Example: to install node v18.16.1 use command:
 
 ```
 nvm install 18.16.1. 
@@ -66,9 +66,9 @@ Now, use command:
 ```
 nvm ls    
 ```
-and you will see that some node versions are installed. Just select a recommended(v18.14.0) version from there by using commande:
+and you will see that some node versions are installed. Just select a recommended(v18.15.0 or 18.16.1) version from there by using commande:
 ```nvm use YOUR-DESIRED-VERSION``` 
-for example:  ```nvm use v18.14.0```
+for example:  ```nvm use v18.16.1```
 
 Now, check node version by using command:  ```node -v```
 You will see your selected version will appear in the terminal.
