@@ -461,6 +461,11 @@ Here we can see the initial value of our smart contract gets printed.
 
 ![App Screenshot](./_readme-image/set-name.png)
 
+Note: How do we determine the gas value ? you can run the command below to get the estimated gas value you need to provide.
+```shell
+eth.estimateGas({ data: contractHex })
+```
+
 This will submit a transaction request to be mined. Therefore, if we call the “getName” now, we will not see the updated value. The value will not be updated until the transaction is mined. To check it we can run:
 ```shell
 txpool.status
