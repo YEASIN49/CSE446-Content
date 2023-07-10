@@ -34,7 +34,7 @@ To run the geth console, we need to install nodejs. You already know what nodejs
 ```
 npm version
 ```
-This command will print an object. If node is installed, its version number will be printed like node: 18.14.0. I am using version v18.14.0 and therefore the terminal showing it. Currently the LTS NodeJs version is v18.14.0. It is recommended to use any version that does not exceed the current LTS version of nodejs. Therefore if your nodejs and npm versions are stable you don’t need to install it again. Recommended node version <=  v18.14.0 and  npm version <= v9.3.1.
+This command will print an object. If node is installed, its version number will be printed like node: 18.15.0. I am using version v18.15.0 and therefore the terminal showing it. Currently the LTS NodeJs version is v18.16.1 and should work as well. It is recommended to use any version that does not exceed the current LTS version of nodejs. Therefore if your nodejs and npm versions are stable you don’t need to install it again. Recommended node version <=  v18.16.x and  npm version <= v9.3.1.
 
 **If you do not see the version number printed, you need to install node.** You can install node from any of the methods described below. However, if you have node installed you can **skip node installation** section and jump to **Install Ethereum and Other Needed Tools** section.
 
@@ -59,7 +59,7 @@ Now, install any node version you want by following command: $  nvm install Your
 For Example: to install node v18.14.0 use command:
 
 ```
-nvm install 18.14.0. 
+nvm install 18.16.1. 
 ```
 
 Now, use command: 
@@ -222,7 +222,7 @@ Here, the port flag **-addr** can be arbitrary, however there are ports that are
 
 11. Finally, we can initiate our private ethereum nodes and connect them in the network. But for this, don’t close the terminal where bootnode is running. We should continue working in a new terminal tab. You can create new terminal tab by clicking the **+** icon on the top left corner of your terminal like below:
 
-![App Screenshot](./_readme-image/image9_1.png)
+![App Screenshot](./_readme-image/add-terminal-tab.jpg)
 
 Now to start our node1 we need to  enter  the following command  shown below:
 
@@ -313,7 +313,7 @@ After entering the command, check the running network log of node1. You should s
 
 Now copy the hash of the submitted request and check the balance of the new account. It is still zero. This is because our transaction request is now waiting to be mined/sign by miners/sealers.
 
-**Note:** To sign/mine block in Ethereum, a block need to be a sealer. Currently the first account of node1 is the only sealer account we have in the network. Try to remember, we added the account as a sealer in the genesis.json file. Therefore, In the upcoming section, we will seal/mine block from this account, since other accounts are not allowed to do this. 
+**Note:** To sign/mine block in Ethereum, a node need to be a sealer/signer. Currently the first account of node1 is the only sealer account we have in the network. Try to remember, we added the account as a sealer in the genesis.json file. Therefore, In the upcoming section, we will seal/mine block from this account, since other accounts are not allowed to do this. 
 
 5. To visualize the process in real life we will use a block explorer. First, open a new termina tab and download/clone the explorer using the command inside your ethereumNetwork folder:
 ```shell
@@ -325,6 +325,12 @@ Now, go inside the explorer folder using command ```cd explorer``` and write ```
 
 ```shell
 miner.setEtherbase(eth.accounts[0])
+```
+
+Also, we will set our first account as the default account. To do this run the command provided below:
+
+```shell
+eth.defaultAccount = eth.accounts[0]
 ```
 
 Now, we can start mining using the command:
@@ -387,15 +393,13 @@ contract SimpleContract {
 
 ![App Screenshot](./_readme-image/image16_2.png)
 
-4. After successful compilation, click to the ““BYTECODE”” button, this will copy a large data object. 
+4. After successful compilation, click to the ““BYTECODE”” button, this will copy a large data. 
 
 ![App Screenshot](./_readme-image/image16_3.png)
 
-Now, paste it to a txt/doc file and find "object" field. Copy the value of object. it's a very large data. Therefore, you must do it very carefully. You can search "object" using the shortcut ```ctrl + f```.
+Now, paste it into a **txt** file. Avoid using **doc** file for this since saving in doc format may create extra line break and spaces in the data.
 
-![App Screenshot](./_readme-image/image16_4.png)
-
-5. Now, go to the geth console of node1 or node2. Let’s choose node1. Assign the copied hex code with a **prefix 0x** in a variable called contractHex. For example: ```contractHex= “0x60806040526040518060400160405........."```
+5. Now, go to the geth console of node1 or node2. Let’s choose node1. Assign the copied bytecode code with a **prefix 0x** in a variable called contractHex. For example: ```contractHex= “0x60806040526040518060400160405........."```
 
 6. In the Remix IDE, you will also find an option called ABI which contains some json data. Click to copy the ABI from there. 
 
@@ -436,28 +440,44 @@ If successfully added to chain, you will find the transaction in the explorer. T
 
 ![App Screenshot](./_readme-image/image23.png)
 
-11. To interact with the methods of smart contract we need to use we3. Therefore, we also need to create a reference of smart contract using web3 in the following way: 
+11. To interact with the methods of smart contract we can utilize the ```contractInterface``` that we already created in the terminal. In addition we need the ```deployedContractAddress``` through which the interface can create a reference point of the deployed contract so that we can interact with it. To do follow command provided:
 
-![App Screenshot](./_readme-image/image24.png)
+```shell
+contractRef = contractInterface.at(deployedContractAddress)
+```
+
+This will return a result like below:
+
+![App Screenshot](./_readme-image/contract-ref.png)
+
 
 12. Finally, using this reference we can call methods of our deployed smart contract by it’s address that we saved earlier in a variable ```deployedContractAddress```
 
-![App Screenshot](./_readme-image/image25.png)
+![App Screenshot](./_readme-image/almost-done.png)
 
 Here we can see the initial value of our smart contract gets printed.
 
 13. Now we also can set userName using the setName method by following: 
 
-![App Screenshot](./_readme-image/image26.png)
+![App Screenshot](./_readme-image/set-name.png)
 
-This will submit a transaction request to be mined. Therefore, if we call the “getName” now, we will not see the updated value. The value will not be updated until the transaction is mined.
+This will submit a transaction request to be mined. Therefore, if we call the “getName” now, we will not see the updated value. The value will not be updated until the transaction is mined. To check it we can run:
+```shell
+txpool.status
+```
+
+You should see there is one pending transaction. 
 
 14. Now for this lab, we will again start mining using node1’s geth console with the first account which was created as sealer. When the transaction is mined we again can call the getName method and can see the updated data is showing like below:
 
-![App Screenshot](./_readme-image/image27.png)
+![App Screenshot](./_readme-image/lab-done.png)
 
 **_Checkpoint 4: Show the result to your teacher_** 
 
-Note: We signed/mined block using only one account which is the sealer account. However, we can convert other accounts into sealer account also. Fo this we need to submit a transaction and that should be validated by other sealer. You can try doing it at your home if you want.
+Note: We signed/mined block using only one account which is the sealer account. However, we can convert other accounts into signer account also. Fo this we need to submit a transaction and that should be validated by other sealers. You can try doing it at your home if you want. For this, more than half + 1 sealers of the network must vote for it. To do this each sealer/signer can utilise the command Provided below. However, this is not for today’s task.
+
+```shell
+clique.propose("Address of the new signer candidate", true)
+```
 
 Finally, Congratulations! you have successfully completed interaction with the smart contract that concludes our today’s lab.
