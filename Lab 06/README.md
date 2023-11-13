@@ -46,7 +46,7 @@ sudo add-apt-repository universe && sudo apt install libfuse2
 
 ![Allow execute ganache](./_readme-image/image2.png)
 
-7. After a double click ganache will be loaded, click the quick run option and you will see a dashboard of a private network with some pre funded accounts. However, at first you need to pay attention to change the port. To do that, go to setting > server and change the port to 8545 and save it. You might need to restart Ganache. Once restarted, you will see the following GUI.
+7. After a double click ganache will be loaded, click the quick run option and you will see a dashboard of a private network with some pre funded accounts. However, at first you need to pay attention to change the port. To do that, go to setting > server and change the port to 8545 and save it. You should see the "RPC Server" of ganache as "http://localhost:8545"(Check at the top of ganache dashboard).  Restart Ganache if it is not updated. Once restarted, you will see the following GUI. Also you can, remane the workspace name as you wish, so that in future you can start from where you left.
 
 ![Allow execute ganache](./_readme-image/image3.png)
 
@@ -57,17 +57,31 @@ sudo add-apt-repository universe && sudo apt install libfuse2
 
 ![Allow execute ganache](./_readme-image/image4.png)
 
-10. Next, click the Network option on the top of the metamask and choose a private network on Metamask by selecting the localhost 8545 option. This will allow Metamask to connect to the Ganache Ethereum instead of the Main-net or Test-net. After selecting the localhost 8545 option.  If the localhost option is not available, click “open/show network” text which will popup a window. Enable show test network from there.  Metamask may try to connect initially and after loading a while you may get a connection failure message. Don’t worry, we didn’t connect it yet. If you get such a message  just close the pop-up message.
+10. Next, click the Network option on the top of the metamask and choose a private network on Metamask by selecting the localhost 8545 option(You may not have this option. Don't worry continue reading). This will allow Metamask to connect to the Ganache Ethereum instead of the Main-net or Test-net. If the localhost option is not available, click “open/show network” text which will popup a window. Enable show test network from there.  Metamask may try to connect initially and after loading a while you may get a connection failure message. Don’t worry, we didn’t connect it yet. If you get such a message just close the pop-up message. Now, If you have localhost:8545 testnet available in your network list skip the steps below and start from step 11.
+
+NOTE: If you still do not have localhost:8545 network option in your metamask network list, you have to manually add this. To do this:
+- In the upper left corner of metamask, click the network you're currently connected to. This will show the currently available mainnet and testnet. Select Add network. You will find this option at the bottom. 
+
+- Once you click it a new browser tab will open and you will find an option "Add Network Manually" at the bottom. Click that option.
+
+- Enter your network name as below:
+```localhost:8545```
+
+- Enter your Network RPC URL ```http://localhost:8545```. This is basically the RPC server url of ganache. (If your are curious about RPC protocol you may explore it after the lab.)
+
+- Enter your Ganache Network chain ID, 1337 (FYI, here hexadecimal format is also supported). Here, 1337 is the default chain ID.
+
+- Enter currency symbol "TEST-ETH" and save the configuration. You can use any other random currency symbol you want. 
 
 11. Now, go to the Ganache window, click the key icon of the third or fourth account and copy the private key.
 
-12. In the Metamask window, click on the user icon of the top right and choose Import Account.
+12. In the Metamask window, Import the account using the private key. We already know how to import account using private key from our very first lab.
 
-13. Once prompted, paste the private key  and click the Import button. This will add the selected account from ganache on Metamask. You can also see the same account address with a balance of 100 ETH.
+13. After clicking Import Account option, once prompted, paste the private key  and click the Import button. This will add the selected account from ganache on Metamask. You can also see the same account address with a balance of 100 currency in both ganache and metamask.
 
 14. Now, check if you already have git installed or not by the command: ```git version```, this will return a version. But if you do not have git installed, then install it using command: ```sudo apt install git```.
 
-15. Now, we will download a blockchain visualiser from [here](https://github.com/etherparty/explorer). After downloading the  zip file, Unzip the file and you will see a file named “**explorer-master**” or “**explorer**”. Move the file to a folder where you will work for today’s lab.  Now, go to “**explore-master/explorer**” folder and open a terminal from there to run the following command: ```npm start```. This will create a local server on http://localhost:8000 where you can see all the transaction reports similar to https://etherscan.io like fig-4. However, Initially there will be no data. You should remember this visualiser is just to give you a small idea  about transaction reports. There are many features in this that are not well functioned. Therefore, don’t get confused  with the value you don’t understand.  Getting the idea of transactions and blocks are  good enough for the lab purpose.
+15. Now, we will download/clone a blockchain visualiser from [here](https://github.com/etherparty/explorer). After downloading/cloning the  zip file, Unzip(if it is in .zip format) the file and you will see a file named “**explorer-master**” or “**explorer**”. Move the file to a folder where you will work for today’s lab.  Now, go to “**explore-master/explorer**” or inside "**explorer**" folder and open a terminal from there to run the following command: ```npm start```. This will create a local server on http://localhost:8000 where you can see all the transaction reports similar to https://etherscan.io like fig-4. However, Initially there will be no data. You should remember this visualiser is just to give you a small idea  about transaction reports. There are many features in this that are not well functioned. Therefore, don’t get confused  with the value you don’t understand.  Getting the idea of transactions and blocks are  good enough for the lab purpose.
 
 ![explorer](./_readme-image/image5.png)
 
@@ -112,7 +126,7 @@ touch contracts/Election.sol
 
 This will create a “**Election.sol**” file inside the contracts folder.
 
-7. Copy the following contents into Election.sol  file and save it. Your instructor will explain what this contract means.
+7. Copy the following solidity code of smart contract into Election.sol  file and save it. We already worked with solidity to create smart contract and this is just one of them.
 
 ```solidity
 // SPDX-License-Identifier: GPL-3.0
@@ -135,7 +149,7 @@ contract Election {
 
 In this contract, we have created a contract called Election with a constructor that sets up the candidate variable with the string **“Candidate1”**. This constructor gets executed once the contract is initialised in the blockchain.
 
-8. Now, **delete** any existing file inside the **migrations** folder and issue this command to create a deploy configuration file for migration below. You can choose the file name as you want. But for the time being name it as it is below:
+8. Now, **delete** any existing file inside the **migrations** folder and issue this command to create a deploy configuration file for migration below. You can choose the file name as you want. But for the time being we named it as "2_deploy_contracts.js".
 
 ```shell
 touch migrations/2_deploy_contracts.js
@@ -155,7 +169,7 @@ var Election = artifacts.require("./Election.sol");
 ```
 Here, first, we require the contract called Election.sol that we've created, and assign it to a variable called "Election". Next, we add it to the manifest of deployed contracts to ensure that it gets deployed when we run the migrations.
 
-10. Next, Open ***truffle-config.js*** file and change the port under ***development*** object to **8545**. If you notice the smart contract, we use **pragma solidity >=0.7.0 <0.9.0**; But, the default compiler version  of truffle is **v5.x.x** Therefore, we need to configure a suitable compiler version between **>=0.7.0 <0.9.0** to compile our contract. To do this copy the below configuration and paste it  after the object named ***networks*** **separated by a comma**. After that,  save the config file.
+10. Next, Open ***truffle-config.js*** file and change the port under ***development*** object to **8545**. If you notice the smart contract, we use **pragma solidity >=0.7.0 <0.9.0**; But, the default compiler version  of truffle is **v5.x.x** Therefore, we need to configure a suitable compiler version between **>=0.7.0 <0.9.0** to compile our contract. To do this copy the below configuration and paste it  after the object named ***networks*** **separated by a comma**. After that,  save the config file. This will ensure that ganache will use compiler version 0.8.16 to compile our smart contract.
 
 ```js
 // Configure your compilers
@@ -180,7 +194,7 @@ Explore the private blockchain visualizer to see this migration process and look
 
 ![truffle migration complete](./_readme-image/image8.png)
 
-13. Then, you will connect to the truffle console to interact with the smart-contract with this command: 
+13. You can connect to the truffle console to interact with the smart-contract from terminal also with this command: 
 ```shell
 truffle console
 ```
@@ -199,7 +213,7 @@ In the console, you will see undefined, that is fine.
 
 ***Checkpoint – 2:*** Show this to your teacher to tick off Checkpoint - 2.
 
-17. Finally write ```.exit``` to exit the truffle console(Notice: there is a dot).
+17. Finally write ```.exit``` to exit the truffle console(Notice: there is a dot). So in future, if you need to run your smart contract using ganache without any UI, this can be an option. However, this is not the only option as we already know one of the usecase of Remix IDE is to run contracts without our own UI. 
 
 # Section-3: Contract testing
 A test case is often useful to automatically test the functionalities of a smart-contract. In the next phase, we will develop a test case for some initial features of election  smart-contract. 
@@ -243,7 +257,7 @@ contract Election {
 
 In this contract, we have created a new data type called **Candidate** using a struct which contains an integer id, string name and an integer voteCount for the particular candidate. There is a mapping which maps an id to its corresponding candidate. The **candidatesCount** variable stores the total number of candidates in the system. It also contains a function called ***addCandidate*** which adds a new candidate in the contract and updates corresponding variables.
 
-2. Since we modified the contract, we  need to migrate it again. Therefore, Use the following command to migrate this updated contract to the blockchain: 
+2. Remember, whenever we modify smart contract we must deploy it again and since we have just modified the contract, we  need to migrate it again. Therefore, Use the following command to migrate this updated contract to the blockchain: 
 
 ```shell
 truffle migrate --reset
@@ -320,7 +334,7 @@ truffle test
 ***Checkpoint – 3:*** If you are done till this part. Show this to your teacher.
 
 # Section-4: Developing the DApp
-In the next phase, we will start building a front-end for our application and then we will build the feature through which our DApp will communicate between blockchain and the frontend. You should follow this section steadily because even a simple unexpected comma can cause errors in this section.
+In the next phase, we will start building a front-end for our application and then we will build the feature through which our DApp will maintain communication between blockchain and the frontend. You should follow this section steadily because even a simple unexpected comma can cause errors in this section.
 
 1. First, open the **index.html** file under the src directory inside the election directory. Replace its contents with the following contents and save
 
@@ -531,9 +545,11 @@ npm run dev
 
 6. It will create a web server at port 3000 and will automatically launch the service in the default browser.
 
-7. Make sure metamask is there in your browser. Now, launch the service: **localhost:3000**. First your metamask will popup to establish a connection. if the connection is established you should see a green text mentioning “**connected**” in the metamask like below: 
+7. Make sure metamask is there in your browser. Now, launch the service: **localhost:3000**. First your metamask will popup to establish a connection. if the connection is established you should see a green text mentioning “**connected**” or a Green Dot in the metamask like one of two images provided below: 
 
 ![truffle test result](./_readme-image/image10.png)
+
+![truffle connected-a](./_readme-image/image10a.png)
 
 8. After that, you should see the following screenshot in your browser if you open the localhost:3000. It indicates your system is correctly deployed.
 
@@ -602,7 +618,7 @@ contract Election {
               }
 }
 ```
-Copy the whole of the content of the code and paste it into the **Election.sol** file and then save it. 
+Copy the whole of the content of the code and replace it into the **Election.sol** file and then save it. 
 
 In this code, we have added a vote function. At first, the vote function checks if a particular voter has voted or not, using its address. If not, it executes the subsequent code. Next, it checks if the voted candidate is a valid candidate. If true, then the particular vote is recorded along with the address of the voter, so that the voter cannot vote again.
 
@@ -627,7 +643,7 @@ truffle migrate --reset
 
 Let's examine a few things about this form. At first, we create the form with an empty **select** element. We will populate the select options with the candidates provided by our smart contract in our **app.js** file. The **onSubmit** handler in the form will call the **castVote** function in our **app.js** file (added below).
 
-12. Next, we update the app.js file in ***election/src/js*** directory. First, remove only the render function from the existing app.js file. Then, paste the following contents where the **render** function previous was.
+12. Next, we update the app.js file in ***election/src/js*** directory. First, remove only the render function from the existing app.js file. Then, paste the following contents where the **render** function previously was.
 
 ```js
 render: async function(){
@@ -729,7 +745,7 @@ render: async function(){
 ```
 The ***render*** function is used to retrieve the candidates from the contract and populate in the html file. In addition, the current result of the vote is also shown. The castVote function is used to cast a vote by a voter.
 
-13. Next, execute this command: 
+13. Now, press ctrl + c to close the local server in the same terminal where you entered npm run dev. Next, execute this command: 
 ```shell
 npm run dev
 ```
