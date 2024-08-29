@@ -195,6 +195,10 @@ Here, first, we require the contract called Election.sol that we've created, and
  }
 
 ```
+The file should look like below:
+
+![truffle migration](./_readme-image/truffle-config.png)
+
 
 11. Now use this command to migrate the contract to the blockchain: 
 
