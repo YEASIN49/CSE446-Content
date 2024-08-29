@@ -1,5 +1,5 @@
 
-# Lab 06 : Ethereum DApp using Truffle, Ganache and Metamask
+# Ethereum DApp using Truffle, Ganache and Metamask
 
 ## Objectives:
 - To create ethereum  decentralised web application using truffle, ganache and metamask
@@ -46,46 +46,58 @@ sudo add-apt-repository universe && sudo apt install libfuse2
 
 ![Allow execute ganache](./_readme-image/image2.png)
 
-7. After a double click ganache will be loaded, click the quick run option and you will see a dashboard of a private network with some pre funded accounts. However, at first you need to pay attention to change the port. To do that, go to setting > server and change the port to 8545 and save it. You should see the "RPC Server" of ganache as "http://localhost:8545"(Check at the top of ganache dashboard).  Restart Ganache if it is not updated. Once restarted, you will see the following GUI. Also you can, remane the workspace name as you wish, so that in future you can start from where you left.
+7. After a double click ganache will be loaded, click the quick run option and you will see a dashboard of a private network with some pre funded accounts. However, at first you need to pay attention to change the port. To do that, go to setting > server and change the port to 8545, save & restart it. Next, you will see the following ganache GUI and on the top of the ganache dashboard you should see the "RPC Server" of ganache as "http://127.0.0.1:8545". 
+
+Note: While starting you can create a new workspace, so that in future you can start from where you left.
 
 ![Allow execute ganache](./_readme-image/image3.png)
 
-8. Next, we will install Metamask. Go to the https://metamask.io/ and install the extension for your preferred browser. If Metamask is already installed from your previous lab, you can skip Step 8.
+8. If Metamask is already available on your browser, you can skip this Step.Else, you need to install Metamask. Go to the https://metamask.io/ and install the extension for your preferred browser. 
 
 
 9. The Metamask initial window will look like the following figure-3. Follow the on-screen instructions to set up Metamask. While setting up, backup the mnemonics phrase for your Metamask account. We already used it in our last lab, therefore it should be installed on the browsers.
 
 ![Allow execute ganache](./_readme-image/image4.png)
 
-10. Next, click the Network option on the top of the metamask and choose a private network on Metamask by selecting the localhost 8545 option(You may not have this option. Don't worry continue reading). This will allow Metamask to connect to the Ganache Ethereum instead of the Main-net or Test-net. If the localhost option is not available, click “open/show network” text which will popup a window. Enable show test network from there.  Metamask may try to connect initially and after loading a while you may get a connection failure message. Don’t worry, we didn’t connect it yet. If you get such a message just close the pop-up message. Now, If you have localhost:8545 testnet available in your network list skip the steps below and start from step 11.
+10. Next, from the list of available network options choose a private network on Metamask by selecting the `localhost:8545` or `127.0.0.1:8545` option(You may not have this option initially. Don't worry continue reading). This will allow Metamask to connect to the local ganache network instead of the Main-net or Test-net. 
+<!-- If the localhost option is not available, click “open/show network”, which will popup a window. Enable show test network from there.  Metamask may try to connect initially and after loading a while you may get a connection failure message. Don’t worry, we didn’t connect it yet. If you get such a message just close the pop-up message. Now, If you have localhost:8545 testnet available in your network list skip the steps below and start from step 11. -->
 
-NOTE: If you still do not have localhost:8545 network option in your metamask network list, you have to manually add this. To do this:
-- In the upper left corner of metamask, click the network you're currently connected to. This will show the currently available mainnet and testnet. Select Add network. You will find this option at the bottom. 
+#### No `localhost:8545` or `127.0.0.1:8545` option in the metamask network list ? Follow the instruction below: 
+If you do not have `localhost:8545` or `127.0.0.1:8545` network option in your metamask network list, you have to manually add this. To do this:
+- In the upper left corner of metamask, click the network you're currently connected to. This will show the currently available mainnet and testnet. Select "Add network".
 
-- Once you click it a new browser tab will open and you will find an option "Add Network Manually" at the bottom. Click that option.
+![Allow execute ganache](./_readme-image/network-list.png)
+
+- Once you click it, a new browser tab will open and you will find an option "Add Network Manually" at the bottom. Click that option. you will see a window like below:
+
+![Allow execute ganache](./_readme-image/add-network-manually.png)
+
+Enter the values mentioned in the picture above. Make sure your ganache "RPC Server" and "New RPC Server" is same.
 
 - Enter your network name as below:
 ```localhost:8545```
 
-- Enter your Network RPC URL ```http://localhost:8545```. This is basically the RPC server url of ganache. (If your are curious about RPC protocol you may explore it after the lab.)
+- RPC URL is basically the RPC server url of ganache. (If your are curious about RPC protocol you may explore it after the lab.)
 
-- Enter your Ganache Network chain ID, 1337 (FYI, here hexadecimal format is also supported). Here, 1337 is the default chain ID.
+- Network chain ID `1337` is the default chain ID. (FYI, here hexadecimal format is also supported). 
 
-- Enter currency symbol "TEST-ETH" and save the configuration. You can use any other random currency symbol you want. 
+- Currency symbol "ETH" this is basically the dummy currency identifier. 
 
 11. Now, go to the Ganache window, click the key icon of the third or fourth account and copy the private key.
 
+![Allow execute ganache](./_readme-image/ganache-account-key.png)
+
 12. In the Metamask window, Import the account using the private key. We already know how to import account using private key from our very first lab.
 
-13. After clicking Import Account option, once prompted, paste the private key  and click the Import button. This will add the selected account from ganache on Metamask. You can also see the same account address with a balance of 100 currency in both ganache and metamask.
+13. After clicking Import Account option, once prompted, paste the private key  and click the Import button. This will add the selected account from ganache on Metamask. You can also see the same account address with a  dummy balance of 100 currency in both ganache and metamask.
 
 14. Now, check if you already have git installed or not by the command: ```git version```, this will return a version. But if you do not have git installed, then install it using command: ```sudo apt install git```.
 
-15. Now, we will download/clone a blockchain visualiser from [here](https://github.com/etherparty/explorer). After downloading/cloning the  zip file, Unzip(if it is in .zip format) the file and you will see a file named “**explorer-master**” or “**explorer**”. Move the file to a folder where you will work for today’s lab.  Now, go to “**explore-master/explorer**” or inside "**explorer**" folder and open a terminal from there to run the following command: ```npm start```. This will create a local server on http://localhost:8000 where you can see all the transaction reports similar to https://etherscan.io like fig-4. However, Initially there will be no data. You should remember this visualiser is just to give you a small idea  about transaction reports. There are many features in this that are not well functioned. Therefore, don’t get confused  with the value you don’t understand.  Getting the idea of transactions and blocks are  good enough for the lab purpose.
+15. Now, we will download/clone a blockchain visualiser from [here](https://github.com/etherparty/explorer). After downloading/cloning the  zip file, Unzip(if it is in .zip format) the file and you will see a file named “**explorer-master**” or “**explorer**”. Move the file to a folder where you will work for today’s lab.  Now, go to “**explore-master/explorer**” or inside "**explorer**" folder and open a terminal from there to run the following command: ```npm start```. This will create a local server on http://localhost:8000 where you can see all the transaction reports similar to https://etherscan.io (Sample image below). However, Initially there will be no data. You should remember this visualiser is just to give you a small idea  about transaction reports. There are many features in this that are not well functioned. Therefore, don’t get confused  with the value you don’t understand.  Getting the idea of transactions and blocks are  good enough for the lab purpose.
 
 ![explorer](./_readme-image/image5.png)
 
-***Checkpoint – 1***: Now you have to make some transaction by sending ether from metamask to another account address that exists in ganache. After the transaction, refresh the  http://localhost:8000, and you should see some transaction details there. try to understand the details by matching addresses. Also check the balance of the accounts of ganache. Show this to your teacher to tick-off Checkpoint-1.
+***Checkpoint – 1***: Now you have to make some transaction by sending ether from metamask to another account address that exists in ganache. After the transaction, refresh the  http://localhost:8000, and you should see some transaction details there. Also check the balance of the accounts of ganache. Show this to your teacher to tick-off Checkpoint-1.
 
 # Section-2: Understanding files, truffle configuration and migration
 
@@ -97,7 +109,10 @@ mkdir election
 cd election
 ```
 
-2. Once you are inside the project, issue this command: ```truffle unbox pet-shop``` 
+2. Once you are inside the project, issue this command: 
+```shell
+truffle unbox pet-shop
+``` 
 
 3. Truffle comes with ready boxes that contain boilerplate (template) for various projects. Therefore, the above command should create a boilerplate application on the election folder.
 
@@ -119,7 +134,7 @@ cd election
 
   vi. **Truffle-config.js file**: This is the main configuration file for any Truffle project
 
-6. Now, we will create our own contract skeleton first. But before that, delete the sample contract file available inside the  “**contracts**” folder that came with the boilerplate code. Now, to create a skeleton contract. Issue this command: 
+6. Now, we will create our own contract skeleton first. But before that, **make sure to delete** all the sample contracts available inside the  “**contracts**” folder that came with the boilerplate code. Now, to create a skeleton contract. Issue this command: 
 ```shell
 touch contracts/Election.sol
 ```
@@ -149,7 +164,7 @@ contract Election {
 
 In this contract, we have created a contract called Election with a constructor that sets up the candidate variable with the string **“Candidate1”**. This constructor gets executed once the contract is initialised in the blockchain.
 
-8. Now, **delete** any existing file inside the **migrations** folder and issue this command to create a deploy configuration file for migration below. You can choose the file name as you want. But for the time being we named it as "2_deploy_contracts.js".
+8. Now, **make sure to delete** any existing file inside the **migrations** folder and issue this command to create a deploy configuration file for migration below. You can choose the file name as you want but you need to make sure the naming format is 1_something.js, 2_some_name.js, 3_other_name etc. So we are naming it as "2_deploy_contracts.js".
 
 ```shell
 touch migrations/2_deploy_contracts.js
@@ -169,7 +184,7 @@ var Election = artifacts.require("./Election.sol");
 ```
 Here, first, we require the contract called Election.sol that we've created, and assign it to a variable called "Election". Next, we add it to the manifest of deployed contracts to ensure that it gets deployed when we run the migrations.
 
-10. Next, Open ***truffle-config.js*** file and change the port under ***development*** object to **8545**. If you notice the smart contract, we use **pragma solidity >=0.7.0 <0.9.0**; But, the default compiler version  of truffle is **v5.x.x** Therefore, we need to configure a suitable compiler version between **>=0.7.0 <0.9.0** to compile our contract. To do this copy the below configuration and paste it  after the object named ***networks*** **separated by a comma**. After that,  save the config file. This will ensure that ganache will use compiler version 0.8.16 to compile our smart contract.
+10. Next, Open ***truffle-config.js*** file and change the port under ***development*** object to **8545**. If you notice the smart contract, we use **pragma solidity >=0.7.0 <0.9.0**; But, the default compiler version  of truffle is **v5.x.x** Therefore, we have to configure a suitable compiler version between **>=0.7.0 <0.9.0** to compile our contract. To do this copy the below configuration and paste it  after the object named **networks**. Make sure to put a comma at the end of **networks** object. After that,  save the config file. This will ensure that ganache will use compiler version 0.8.16 to compile our smart contract.
 
 ```js
 // Configure your compilers
@@ -190,7 +205,7 @@ Explore the private blockchain visualizer to see this migration process and look
 
 ![truffle migration](./_readme-image/image7.png)
 
-12. Check the account address in the image above. Truffle by default selects the first account listed on ganache for deployment of smart contracts. Therefore if you try to match the account address, you will find the account is the first account of ganache. The image below also shows  1 transaction( Tx count ) in the first account.
+12. Check the account address in the image above. Truffle by default selects the first account listed on ganache for deployment of smart contracts. Therefore if you try to match the account address, you will find the account is the first account of ganache. The image below also shows  1 transaction( TX COUNT ) in the first account.
 
 ![truffle migration complete](./_readme-image/image8.png)
 
@@ -226,31 +241,31 @@ pragma solidity >=0.7.0 <0.9.0;
 
 
 contract Election {
-   // model a candidate
-   struct Candidate {
-       uint id;
-       string name;
-       uint voteCount;
-   }
-   // read/write candidates
-   mapping( uint => Candidate ) public candidates;
+  // model a candidate
+  struct Candidate {
+    uint id;
+    string name;
+    uint voteCount;
+  }
+  // read/write candidates
+  mapping( uint => Candidate ) public candidates;
 
 
-   // store candidates count
-   uint public candidatesCount;
+  // store candidates count
+  uint public candidatesCount;
 
 
-   // Constructor
-   constructor() {
-       addCandidate( "Candidate 1" );
-       addCandidate( "Candidate 2" );
-   }
+  // Constructor
+  constructor() {
+    addCandidate( "Candidate 1" );
+    addCandidate( "Candidate 2" );
+  }
 
   // add candidate to participate the election
-   function addCandidate( string memory _name ) private {
-       candidatesCount++;
-      candidates[ candidatesCount ] = Candidate( candidatesCount, _name, 0 );
-   }
+  function addCandidate( string memory _name ) private {
+    candidatesCount++;
+    candidates[ candidatesCount ] = Candidate( candidatesCount, _name, 0 );
+  }
 }
 
 ```
@@ -278,40 +293,39 @@ This will create a **election.js** file inside the **test** folder. This file ba
 ```js
 let Election = artifacts.require("./Election.sol");
 
+ contract("Election", async function(accounts){
+    console.log('Your Available Ganache Accounts: ' + accounts)
+    
+    it("initialize with two candidates", async function(){
+        // fetching the deployed contract instance 
+        const deployedContract = await Election.deployed()
+        
+        // calling the "candidatesCount()" function of the contract
+        const numberOfCanddates = await deployedContract.candidatesCount()
 
- contract("Election", function(accounts){
-   let electionInstance;
-
-
-   it("initialize with two candidates", function(){
-       return Election.deployed()
-       .then( function(instance){
-           return instance.candidatesCount()
-       })
-       .then( function( count ){
-           assert.equal( count, 2 )
-       });
+        // checking if candidate count is 2. At the beginning the smart contract has two candidates
+        assert.equal( numberOfCanddates, 2 )
    });
 
+   it("it initialize the candidates with the correct values", async function(){
+        // fetching the deployed contract instance 
+        const deployedContract = await Election.deployed()
 
-   it("it initialize the candidates with the correct values", function(){
-       return Election.deployed()
-       .then( function(instance){
-           electionInstance = instance;
-           return electionInstance.candidates(1);
-       })
-       .then( function( candidate ){
-           assert.equal( candidate[0], 1, "contains correct id" );
-           assert.equal( candidate[1], "Candidate 1", "contains correct name" );
-           assert.equal( candidate[2], 0, "contains correct votes count" );
-           return electionInstance.candidates(2);
-       })
-       .then( function(candidate){
-           assert.equal( candidate[0], 2, "contains correct id" );
-           assert.equal( candidate[1], "Candidate 2", "contains correct name" );
-           assert.equal( candidate[2], 0, "contains correct votes count" );
-           return electionInstance.candidates(2);
-       });
+        // calling the public mapping data object "candidates" from smart contract | candidate 1 is being called
+        const candidateOneAttribute = await deployedContract.candidates(1);
+
+        // validating the initial value of candidate One.
+        assert.equal( candidateOneAttribute[0], 1, "contains correct id" );
+        assert.equal( candidateOneAttribute[1], "Candidate 1", "contains correct name" );
+        assert.equal( candidateOneAttribute[2], 0, "contains correct votes count" );
+
+        // calling the public mapping data object "candidates" from smart contract | candidate 2 is being called
+        const candidateTwoAttribute = await deployedContract.candidates(2);
+        
+        // validating the initial value of candidate two.
+        assert.equal( candidateTwoAttribute[0], 2, "contains correct id" );
+        assert.equal( candidateTwoAttribute[1], "Candidate 2", "contains correct name" );
+        assert.equal( candidateTwoAttribute[2], 0, "contains correct votes count" );
    });
 });
 
@@ -390,18 +404,21 @@ In the next phase, we will start building a front-end for our application and th
                  </p>
              </div>
          </div>
-     </div>
- </div>
+    </div>
+  </div>
 
+  <!-- TODO_HTML-1: YOU WILL ADD A FUNCTION FOR CASTING VOTE BELOW THIS LINE -->
 
-   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-   <!-- Include all compiled plugins (below), or include individual files as needed -->
-   <script src="js/bootstrap.min.js"></script>
-   <script src="js/web3.min.js"></script>
-   <script src="js/truffle-contract.js"></script>
-   <script src="js/app.js"></script>
- </body>
+  <!-- TODO_HTML-1: YOU WILL ADD A FUNCTION FOR CASTING VOTE ABOVE THIS LINE -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/app.js"></script>
+  </body>
 </html>
 ```
 
@@ -409,119 +426,119 @@ In the next phase, we will start building a front-end for our application and th
 
 ```js
 App = {
- webProvider: null,
- contracts: {},
- account: '0x0',
-
-
- init: function() {
-   return App.initWeb();
- },
-
-
- initWeb:function() {
-   // if an ethereum provider instance is already provided by metamask
-   const provider = window.ethereum
-   if( provider ){
-     // currently window.web3.currentProvider is deprecated for known security issues.
-     // Therefore it is recommended to use window.ethereum instance instead
-     App.webProvider = provider;
-   }
-   else{
-     $("#loader-msg").html('No metamask ethereum provider found')
-     console.log('No Ethereum provider')
-     // specify default instance if no web3 instance provided
-     App.webProvider = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-   }
-
-
-   return App.initContract();
- },
-
-
- initContract: function() {
-   $.getJSON("Election.json", function( election ){
-     // instantiate a new truffle contract from the artifict
-     App.contracts.Election = TruffleContract( election );
-
-
-     // connect provider to interact with contract
-     App.contracts.Election.setProvider( App.webProvider );
-
-
-     return App.render();
-   })
- },
-
-
- render: async function(){
-   var electionInstance;
-   var loader = $("#loader");
-   var content = $("#content");
-
-
-   loader.show();
-   content.hide();
-  
-   // load account data
-   if (window.ethereum) {
-     try {
-       // recommended approach to requesting user to connect metamask instead of directly getting the accounts
-       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-       App.account = accounts;
-       $("#accountAddress").html("Your Account: " + App.account);
-     } catch (error) {
-       if (error.code === 4001) {
-         //  code 4001 === User rejected request
-         console.warn('user rejected')
-       }
-       console.error(error);
-     }
-   }
-
-
-   //load contract data
-   App.contracts.Election.deployed()
-   .then( function( instance ){
-     electionInstance = instance;
-
-
-     return electionInstance.candidatesCount();
-   }) 
-   .then( function( candidatesCount ){
-     var candidatesResults = $("#candidatesResults");
-     candidatesResults.empty();
-
-
-     for (let i = 1; i <= candidatesCount; i++) {
-       electionInstance.candidates( i )
-       .then( function( candidate ){
-         var id = candidate[0];
-         var name = candidate[1];
-         var voteCount = candidate[2];
+    // the vaiable below will store references of wallet, smart contract and your accounts
+    webProvider: null,
+    contracts: {},
+    account: '0x0',
+   
+   
+    initWeb:function() {
+        // if an ethereum provider instance is already provided by metamask
+        const provider = window.ethereum
+        if( provider ){
+          App.webProvider = provider;
+        }
+        else{
+          $("#loader-msg").html('No metamask ethereum provider found')
     
-         // render results
-    var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>"
-         candidatesResults.append( candidateTemplate )
-       });
-     }
+          // specify default instance if no web3 instance provided
+          App.webProvider = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+        }
+     
+        return App.initContract();
+    },
+   
+   
+    initContract: function() {
+        $.getJSON("Election.json", function( election ){
+          // instantiate a new truffle contract from the artifict
+          App.contracts.Election = TruffleContract( election );
+     
+          // connect provider to interact with contract
+          App.contracts.Election.setProvider( App.webProvider );
+    
+          // TODO_JS-5:YOU WILL ADD listenForEvents() FUNCTION CALL DURING LAB SESSION BELOW"
+          
+          return App.render();
+        })
+    },
+   
+   // NOTE: render function starts below  
+    render: async function(){
+        // reference of html loading text
+        const loader = $("#loader");
+        // reference of all the html contents
+        const content = $("#content");
+     
+        loader.show();
+        content.hide();
+       
+        // open wallet and load account data
+        if (window.ethereum) {
+          try {
+            // recommended approach to requesting user to connect mmetamask instead of directly getting the list of connected account
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            App.account = accounts;
+            $("#accountAddress").html(`You have ${ App.account.length } account connected from metamask: ${ App.account } <br/> Current account in use: ${App.account[0]}`);
+          } catch (error) {
+            if (error.code === 4001) {
+              // User rejected request
+              console.warn('user rejected')
+            }
+            $("#accountAddress").html("Your Account: Not Connected");
+            console.error(error);
+          }
+        }
+   
+        //load contract instance
+        const contractInstance = await App.contracts.Election.deployed()
+        // retrieving count of currentlt available candidate  
+        const candidatesCount = await contractInstance.candidatesCount();
 
+        
+        const candidatesResults = $("#candidatesResults");
+        candidatesResults.empty();
 
-     loader.hide();
-     content.show();
-   })
-   .catch( function( error ){
-     console.warn( error )
+        const candidatesSelect = $("#candidatesSelect");
+        candidatesSelect.empty();
+   
+   
+        for (let i = 1; i <= candidatesCount; i++) {
+            // calling the public mapping data object "candidates" from smart contract to retrieve voting candidates info
+            const candidate = await contractInstance.candidates( i )
+            const id = candidate[0];
+            const name = candidate[1];
+            const voteCount = candidate[2];
+      
+            // creating html template which will be added to frontend dynamically
+            const candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>"
+      
+            // now adding the candidateTemplate html template dynamically into frontend
+            candidatesResults.append( candidateTemplate );
+      
+            // TODO_JS-1: STUDENTS WILL ADD VOTING CANDIDATE SELECT OPTION DURING LAB SESSION BELOW
+
+        }
+      
+        // TODO_JS-2: STUDENTS WILL ADD WHEATHER THE CURRENT METAMASK ACCOUNT WAS USED TO CAST VOTE BEFORE 
+       
+        loader.hide();
+        content.show();
+    },
+    // NOTE: render FUNCTION ENDS ABOVE
+    // TODO_JS-3: castVote WILL BE ADDED BELOW
+
+    //TODO_JS-4: listenForEvents FUNCTION SOULD BE ADDED BELOW
+
+   };
+   
+   
+   $(function() {
+    $(window).load(function() {
+      App.initWeb();
+    });
    });
- }
-};
-
-
-$(function() {
- $(window).load(function() {
-   App.init();
- });
-});
+   
 
 ```
 
@@ -580,9 +597,10 @@ contract Election {
    // Read/write candidates
    mapping( uint => Candidate ) public candidates;
 
-
    // store candidates count
    uint public candidatesCount;
+
+   // TODO_SC-1: YOU WILL ADD THE DECLARATION OF event votedEvent BELOW DURING THE LAB SESSION
 
 
    // Constructor
@@ -599,23 +617,25 @@ contract Election {
    }
 
 
-   // cast vote
-   function vote( uint _candidateId ) public {
-       // require that the current voter haven't voted before
-       require( !voters[ msg.sender ]);
+    // cast vote
+    function vote( uint _candidateId ) public {
+      // require that the current voter haven't voted before
+      require( !voters[ msg.sender ]);
 
 
-       // candidate should be valid
-       require( _candidateId > 0 && _candidateId <= candidatesCount );
+      // candidate should be valid
+      require( _candidateId > 0 && _candidateId <= candidatesCount );
 
 
-       // record voters vote
-       voters[ msg.sender ] = true;
+      // record voters vote
+      voters[ msg.sender ] = true;
 
 
-       // update candidates vote count
-       candidates[ _candidateId ].voteCount++;
-              }
+      // update candidates vote count
+      candidates[ _candidateId ].voteCount++;
+
+      // TODO_SC-2: YOU WILL ADD emit votedEvent BELOW DURING THE LAB SESSION
+    }
 }
 ```
 Copy the whole of the content of the code and replace it into the **Election.sol** file and then save it. 
@@ -628,7 +648,7 @@ In this code, we have added a vote function. At first, the vote function checks 
 truffle migrate --reset
 ```
 
-11. Next, we update our **index.html** file to add the voting capability. Open the index.html file in the ***election/src*** directory. Add the following lines of code before the script tag in the html file:
+11. Next, we update our **index.html** file to add the frontend options for voting capability. Open the index.html file in the ***election/src*** directory. Add the following lines of code before the script tag(There is a designated place(TODO_HTML-1) mentioned to paste the code) in the html file:
 
 ```html
 <form onsubmit="App.castVote(); return false;" class="text-center">
@@ -643,177 +663,98 @@ truffle migrate --reset
 
 Let's examine a few things about this form. At first, we create the form with an empty **select** element. We will populate the select options with the candidates provided by our smart contract in our **app.js** file. The **onSubmit** handler in the form will call the **castVote** function in our **app.js** file (added below).
 
-12. Next, we update the app.js file in ***election/src/js*** directory. First, remove only the render function from the existing app.js file. Then, paste the following contents where the **render** function previously was.
+12. Next, we update the app.js file in ***election/src/js*** directory. In step-11, we added the frontend code to select one candidate to vote. Now we will make that feature functional. To do this, copy the code below and paste it in the **TODO_JS-1**:
 
 ```js
-render: async function(){
-   let electionInstance;
-   const loader = $("#loader");
-   const content = $("#content");
+//creating html template for voter candidate option which will be added to frontend dynamically
+const candidateOption = "<option value=" + id +  ">" + name + "</option>"
 
-
-   loader.show();
-   content.hide();
-  
-   // load account data
-   if (window.ethereum) {
-     try {
-       // recommended approach to requesting user to connect mmetamask instead of directly getting the accounts
-       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-       App.account = accounts;
-       $("#accountAddress").html("Your Account: " + App.account);
-     } catch (error) {
-       if (error.code === 4001) {
-         // User rejected request
-         console.warn('user rejected')
-       }
-       $("#accountAddress").html("Your Account: Not Connected");
-       console.error(error);
-     }
-   }
-
-
-   //load contract ddata
-   App.contracts.Election.deployed()
-   .then( function( instance ){
-     electionInstance = instance;
-
-
-     return electionInstance.candidatesCount();
-   }) 
-   .then( function( candidatesCount ){
-     var candidatesResults = $("#candidatesResults");
-     candidatesResults.empty();
-
-
-     var candidatesSelect = $("#candidatesSelect");
-     candidatesSelect.empty();
-
-
-     for (let i = 1; i <= candidatesCount; i++) {
-       electionInstance.candidates( i )
-       .then( function( candidate ){
-         var id = candidate[0];
-         var name = candidate[1];
-         var voteCount = candidate[2];
-        
-         // render results
-         var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>"
-         candidatesResults.append( candidateTemplate );
-
-
-         //render balloot option
-         let candidateOption = "<option value=" + id +  ">" + name + "</option>"
-         candidatesSelect.append( candidateOption )
-       });
-     }
-     return electionInstance.voters(  App.account )
-   })
-   .then( function( hasVoted ){
-     // don't allow user to vote
-     if(hasVoted){
-       $( "form" ).hide()
-     }
-     loader.hide();
-     content.show();
-   })
-   .catch( function( error ){
-     console.warn( error )
-   });
- },
-
-
- // casting vote
- castVote: function(){
-   let candidateId = $("#candidatesSelect").val();
-   App.contracts.Election.deployed()
-   .then( function( instance ){
-     return instance.vote( candidateId, { from: App.account[0] } )
-   })
-   .then( function( result ){
-     // wait for voters to update vote
-     console.log({ result })
-       // content.hide();
-       // loader.show();
-       alert("You have voted successfully")
-   })
-   .catch( function( err ){
-     console.error( err )
-   } )
- },
-
+// now the html candidateOption template is being dynamically added into the frontend dynamically
+candidatesSelect.append( candidateOption )
 ```
-The ***render*** function is used to retrieve the candidates from the contract and populate in the html file. In addition, the current result of the vote is also shown. The castVote function is used to cast a vote by a voter.
+In the code above, we are adding the candidate info such as **_id_** and **_name_** dynamically into the frontend(into the html) that we already fetched from smart contract.
 
-13. Now, press ctrl + c to close the local server in the same terminal where you entered npm run dev. Next, execute this command: 
+13. Next, we will add the logic to check whether the currently connected and in used metamask account has already been used to cast vote or not. To add this logic paste the below code into the designated **TODO_JS-2** place inside the render function of app.js file.
+
+```js
+// checking if the currently metamask wallet account already voted | if already casted vote the account address will be returned 
+const hasVoted = await contractInstance.voters(  App.account[0] )
+
+// if already voted, voting form gets hidden
+if(hasVoted){
+  $( "form" ).hide()
+}
+```
+
+14. When a user/voter clicks the vote button from frontend, we need to call a js function which will then call the smart contract and update the vote count of the selected voting candidate. To do this, paste the following code at the designated **TODO_JS-3** place available after the end of the render function. Make sure there is a a comma at the ending  bracke **}** of render function.
+
+```js
+  // Once the vote button from frontend is clicked, the function below will be called and update the smart contract 
+  castVote: async function(){
+    const contractInstance = await App.contracts.Election.deployed()
+    
+    // fetch the currently selected candidate value(This is the candidate id)
+    const candidateId = $("#candidatesSelect").val();
+    const result = await contractInstance.vote( candidateId, { from: App.account[0] } )
+
+    alert("You have voted successfully")
+  },
+```
+
+Now you are ready to use your application.
+
+15. Now, if the terminal is running stop it by pressing **ctrl + c** and run it again.
+
 ```shell
 npm run dev
 ```
+
 Now open a browser with the Metamask installed and visit localhost:3000. and you should see a page like below:
 
 ![truffle test result](./_readme-image/image12.png)
 
-14. Explore the interface and cast your vote. Even though our DApp has complete functionalities, it lacks one major feature. Once you vote, the vote is not automatically shown in the browser. You need to reload the page. Therefore, we would like to address this shortcoming by leveraging the **event** functionality of Ethereum
 
-15. press **ctrl + c** to close the local server in the same terminal where you entered **npm run dev**. Now, add the following line of code just after the contract definition( at line: 8 ) in the Election.sol file:
+16. Explore the interface and cast your vote. Is there any wront ? Even though our DApp has complete functionalities, it lacks one feature. Once you cast vote, the updated vote count is not automatically shown in the browser. You need to reload the page. But can't we do it automatically ? Yes, there are two straightforward way. We can reload the page using only javascript. But how will javascript know that the smart contract has been updated and js can get the updated result now ? We can utilize **event** of solidity for such usecase. Therefore, we would like to address this shortcoming by leveraging the **event** functionality of Ethereum.
+
+17. press **ctrl + c** to close the terminal where you entered **npm run dev**. Now, add the following line of code where the variables of the contract are declared( **TODO_SC-1** around line number: 25 ) in the Election.sol file:
 
 ```solidity
 event votedEvent( uint indexed _candidateId );
 ```
 
-16. Next, update the **vote** function in the contract by adding the following code at the end of the **vote** function: 
+16. Next, update the **vote** function in the smart contract by adding the following code at the end but inside of the **vote** function (**TODO_SC-2**): 
 
 ```solidity
-/// emit the event
-	emit votedEvent( _candidateId );
+// emit the event
+emit votedEvent( _candidateId );
 ```
 
 
-17. Next, we need to update our app.js file of ***election/src/js*** directory by adding the following function after the castVote function. Don’t forget to add a **comma(,)** at the end of the **castVote** function. 
+17. Next, we need to update our app.js file of ***election/src/js*** directory by adding the following function after the castVote function (**TODO_JS-4**). Don’t forget to add a **comma(,)** at the end of the **castVote** function if not available. The listenForEvents functions is invoked when an event is emitted from the contract calls. In this case when the "votedEvent" gets emitted from the contract.
 
 ```js
 // voted event
- listenForEvents: function(){
-   App.contracts.Election.deployed()
-   .then( function( instance ){
-     instance.votedEvent({}, {
-       fromBlock: 0,
-       toBlock: "latests"
-     })
-     .watch( function( err, event ){
-       console.log("Triggered", event);
-       // reload page
-       App.render()
-     })
-   })
- }
+listenForEvents: async function(){
+  const contractInstance = await App.contracts.Election.deployed()
+
+  contractInstance.votedEvent({}, {
+    fromBlock: 0,
+    toBlock: "latests"
+  })
+  .watch( function( err, event ){
+    console.log("Triggered", event);
+
+    // reload page
+    App.render()
+  })
+}
 
 ```
 
-18. Now update the ***initContract*** function of ***app.js*** with the following code:
+18. However, javascript needs a listeners to catch the emitted event. Therefore, the line below inside the ***initContract*** function of ***app.js*** file (**at TODO_JS-5**) which initiates the listening activity when the web page loads.
 
 ```js
-initContract: function() {
-
-
-   $.getJSON("Election.json", function( election ){
-     // instantiate a new truffle contract from the artifict
-     App.contracts.Election = TruffleContract( election );
-
-
-     // connect provider to interact with contract
-     App.contracts.Election.setProvider( App.webProvider );
-
-
-     App.listenForEvents();
-
-
-     return App.render();
-   })
-
-
- },
-
+App.listenForEvents();
 ```
 
 
@@ -821,5 +762,5 @@ initContract: function() {
 
 #
 
-***Checkpoint – 5:*** Now you need to migrate the contract and you will see after casting vote table data for vote count automatically gets updated. Also you need to check the transaction details from the block visualizer we used earlier. Finally, show this to your teacher to tick-off the final checkpoint. 
+***Checkpoint – 5:*** Now you need to migrate the contract and you will see after casting vote, the table data for vote count automatically gets updated. Also you need to check the transaction details from the block visualizer we used earlier. Finally, show this to your teacher to tick-off the final checkpoint. 
 

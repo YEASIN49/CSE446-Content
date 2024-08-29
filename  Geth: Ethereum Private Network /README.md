@@ -1,5 +1,5 @@
 
-# Lab 4 : Ethereum Private Network and Smart Contract Interaction
+# Ethereum Private Network and Smart Contract Interaction
 
 ## Objective: 
 -   To create an ethereum private network and portray a scenario of how the network interacts in the real world. Students will also learn the basics of smart contract deploy and how to communicate with it.
